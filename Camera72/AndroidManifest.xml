@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="orz.kassy.camera72"
+    android:versionCode="2"
+    android:versionName="0.1" >
+
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="9"/>
+
+    <uses-permission android:name="android.permission.CAMERA" /><!-- check here -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.camera" /><!-- check here -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /><!-- check here -->
+    <uses-feature android:name="android.hardware.camera.flash" /><!-- check here -->
+    <uses-feature android:name="android.software.live_wallpaper" />
+    
+    
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name="orz.kassy.camera72.MainActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RecordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".RecordListActivity"
+            android:screenOrientation="landscape" 
+            android:label="@string/record_list_label"
+        />
+        <activity
+            android:name=".ExtractPictureActivity"
+            android:screenOrientation="landscape" 
+            android:theme="@style/myapp_theme"
+            android:label="@string/extract_activity_label"
+        />
+        <activity
+            android:name=".OverlayShotActivity"
+            android:screenOrientation="landscape" 
+            android:label="@string/overlay_shot_activity_label"
+        />
+        <activity
+            android:name=".OverlayImageActivity"
+            android:screenOrientation="landscape" 
+            android:configChanges="orientation"
+        />
+        
+        <service
+            android:name=".LiveWallpaperService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_WALLPAPER" >
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/wallpaper" />
+        </service>
+        
+        <activity 
+            android:name="LivePreference" 
+            android:theme="@android:style/Theme.Light.WallpaperSettings" 
+            android:exported="true">
+        </activity>
+        
+        
+    </application>
+
+    
+</manifest>

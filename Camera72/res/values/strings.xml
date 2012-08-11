@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">HRカメラ</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="ask_get_front_dialog_cancel">イラネ</string>
+    <string name="ask_get_front_dialog_title">前景抽出しましょうか</string>
+    <string name="ask_get_front_dialog_message">前景抽出しましょうか、その場合は撮影後にタイミングよく人形をかっさらうんだぜ</string>
+    <string name="remove_figure_dialog_title">３秒で人形を除去しな</string>
+    <string name="strPickupExec">切り出し実行</string>
+    <string name="description">72shot</string>
+    <string name="extract_activity_label">抜き出し</string>
+    <string name="record_list_label">フィギュア選択</string>
+    <string name="overlay_image_activity_label">リア充モード</string>
+    <string name="overlay_shot_activity_label">リア充モード</string>
+    <string name="dialog_message_delete_item">を消去してよろしいですか</string>
+    <string name="dialog_title_delete_item">アイテム消去</string>
+    <string name="alert_dialog_delete">消去</string>
+    <string name="rotate_left">左に回転</string>
+    <string name="rotate_right">右に回転</string>
+    <string name="figure_exp_up">フィギュアを明るく</string>
+    <string name="figure_exp_down">フィギュアを暗く</string>
+    <string name="figure_feather_up">ぼかし強く</string>
+    <string name="figure_feather_down">ぼかし弱く</string>
+    <string name="complete_save_picture">画像を保存しました</string>
+    <string name="action_list_dialog">どうしましょう</string>
+    <string name="extract_dialog_title">処理中</string>
+    <string name="extract_dialog_message">抜き出し処理をしています.お待ちください</string>
+    <string name="encode_dialog_title">エンコード</string>
+    <string name="encode_dialog_message">エンコードしています.お待ちください</string>
+    <string name="record_dialog_title">撮影中</string>
+    <string name="record_dialog_message">撮影中です. お待ちください. \n 端末に触れないでください</string>
+</resources>

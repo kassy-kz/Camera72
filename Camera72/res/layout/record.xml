@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:id="@+id/headText"
+            android:visibility="gone"
+            />
+        <Button 
+            android:layout_width="0dip"
+            android:text="focus"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnFocus" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="▲"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnExpUp" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="▼"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnExpDown" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="72shot"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRecordStart" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="stop"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRecordStop" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="OneShot"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnOneShotStart" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="encode"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/encode" />
+        <Button 
+            android:layout_width="0dip"
+            android:text="set"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRecordSet" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+            <LinearLayout 
+                android:layout_width="0dip"
+                android:layout_weight="4"
+                android:layout_height="fill_parent">
+                <FrameLayout
+                    android:id="@+id/cameraParent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/green"
+                    android:orientation="vertical" >
+                    <FrameLayout
+                        android:id="@+id/cameraSpaceView"
+                        android:layout_width="100dip"
+                        android:layout_height="100dip"
+                        android:background="@color/blue"
+                        android:orientation="vertical" >
+                    </FrameLayout>
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+                 <include layout="@layout/record_side_tutorial"></include>
+            </LinearLayout>
+        </LinearLayout>
+
+
+</LinearLayout>

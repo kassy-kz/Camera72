@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+      <ImageView
+        android:id="@+id/db_row_image"
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:tag="icon"
+        android:src="@drawable/ic_launcher"
+        />
+      <TextView
+          android:id="@+id/db_row_name"
+          android:layout_width="0dip"
+          android:layout_weight="3"
+          android:layout_height="wrap_content"
+          android:text="name"
+          android:tag="text"
+          android:textSize="25dip"
+          android:padding="10dip" />
+
+      <LinearLayout
+          android:layout_width="0dip"
+          android:layout_weight="1"
+          android:layout_height="fill_parent"
+          android:orientation="vertical"
+          >
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_weight="1"
+              android:layout_height="0dip"
+              android:id="@+id/db_row_width"
+              />
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_weight="1"
+              android:layout_height="0dip"
+              android:id="@+id/db_row_height"
+              />
+      </LinearLayout>
+          
+
+      <LinearLayout
+          android:layout_width="0dip"
+          android:layout_weight="1"
+          android:layout_height="fill_parent"
+          android:orientation="vertical"
+          >
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_weight="1"
+              android:layout_height="0dip"
+              android:id="@+id/db_row_fgcnt"
+              />
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_weight="1"
+              android:layout_height="0dip"
+              android:id="@+id/db_row_bgcnt"
+              />
+      </LinearLayout>
+      
+</LinearLayout>

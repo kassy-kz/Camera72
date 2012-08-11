@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="number_of_picture">
+        <item>1枚撮影</item>
+        <item>50枚撮影</item>
+        <item>100枚撮影</item>
+        <item>150枚撮影</item>
+        <item>200枚撮影</item>
+    </string-array>
+    
+    <integer-array name="number_of_picture_int">
+        <item>1</item>
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+    </integer-array>
+
+    <integer-array name="list_extract_bg_color">
+        <item>0xffffffff</item>
+        <item>0xffaaaaaa</item>
+        <item>0x00000000</item>
+        <item>0xff000000</item>
+    </integer-array>
+
+    <string-array name="list_extract_bg_color_string">
+        <item>white</item>
+        <item>gray</item>
+        <item>grad</item>
+        <item>black</item>
+    </string-array>
+
+    <string-array name="select_action_dialog_items">
+        <item>抜き出し処理を行う</item>
+        <item>見る</item>
+        <item>写真に重ねる</item>
+        <item>カメラに重ねる</item>
+    </string-array>
+    
+</resources>

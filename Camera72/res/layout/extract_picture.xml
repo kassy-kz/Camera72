@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:id="@+id/pickupMain" >
+    <LinearLayout
+        android:id="@+id/compareLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip" 
+        android:layout_weight="4">
+        <ImageView
+            android:padding="5dip"
+            android:id="@+id/pickupOriginImage"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <ImageView
+            android:padding="0dip"
+            android:src="@drawable/arrow_right"
+            android:layout_width="0dip"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:padding="5dip"
+            android:id="@+id/pickupCutImage"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" >
+        <SeekBar
+            android:id="@+id/pickupSeekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+             />
+    </LinearLayout>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/pickupExecButton"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:text="@string/strPickupExec"
+        android:layout_weight="1" />
+    
+</LinearLayout>
