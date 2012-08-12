@@ -58,6 +58,10 @@ public class OverlayFigureView extends View {
     // なんか全然仕事してくれないパラメータ
     private static final int STAMP_HEIGHT = 60;
     private static final int STAMP_WIDTH = 40;
+
+    public static final int OVERLAY_NORMAL = 0;
+    public static final int OVERLAY_REVERSE = 1;
+
     private Context mContext;
     private String mDirectory;
     
@@ -125,16 +129,17 @@ public class OverlayFigureView extends View {
     
     /**
      * 背景とフィギュアの合成を保存する
-     * TODO メモリー足りない
+     * TODO メモリー足りない問題
      * @param backgroundBmp 背景ビットマップ　このビューのサイズに合わせたものであること
+     * @param overlayReverse 合成時にフィギュアを反転するか否かのフラグ
      */
-    public void saveMergeBitmap(Bitmap backgroundBmp) {
+    public void saveMergeBitmap(Bitmap backgroundBmp, int overlayReverse) {
         Log.i(TAG,"saveMergeBitamp");
 
-        // とりま現実的な案 bitmap重畳保存
-        Bitmap bmp2 = getFigureOverlayedBitmap(backgroundBmp);
+        // 現在の現実的な案 bitmap重畳保存
+        Bitmap bmp2 = getFigureOverlayedBitmap(backgroundBmp, overlayReverse);
 
-        // 保存する
+        // ギャラリーに保存する
         MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bmp2, "72shot.jpg", "Created by camera72");
     }
 
@@ -144,22 +149,31 @@ public class OverlayFigureView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawFigure(canvas);
+        drawFigure(canvas, OVERLAY_NORMAL);
     }
 
     /**
      * Canvasにフィギュアを描画する　
      * @param canvas
+     * @param overlayReverse 
      */
-    public void drawFigure(Canvas canvas) {
+    public void drawFigure(Canvas canvas, int overlayReverse) {
         // フィギュアの描画場所をMatrixで調整
         Matrix matrix = new Matrix();
         Log.i(TAG,"onDraw mScale = "+mFigureScale);
         matrix.postRotate(mFigureRotate , mFigureBitmap.getWidth()/2, mFigureBitmap.getHeight()/2);
-        matrix.postScale(mFigureScale,mFigureScale);
-        matrix.postTranslate(
-                mCenterX - (int)(mFigureBitmap.getWidth()/2 * mFigureScale),
-                mCenterY - (int)(mFigureBitmap.getHeight()/2 * mFigureScale));
+        if(overlayReverse == OVERLAY_NORMAL){
+            matrix.postScale(mFigureScale,mFigureScale);
+            matrix.postTranslate(
+                    mCenterX - (int)(mFigureBitmap.getWidth()/2 * mFigureScale),
+                    mCenterY - (int)(mFigureBitmap.getHeight()/2 * mFigureScale));
+        // 反転しているとき
+        }else if(overlayReverse == OVERLAY_REVERSE){
+            matrix.postScale(-mFigureScale,mFigureScale);
+            matrix.postTranslate(
+                    canvas.getWidth() - mCenterX + (int)(mFigureBitmap.getWidth()/2 * mFigureScale),
+                    mCenterY - (int)(mFigureBitmap.getHeight()/2 * mFigureScale));
+        }
         
         // 描画
         Log.i(TAG, "draw mX = " +mCenterX+"width = "+mFigureBitmap.getWidth());
@@ -306,11 +320,12 @@ public class OverlayFigureView extends View {
     };
     
     /**
-     * 合成を行う　とりま画面で表示している内容をそのまま
+     * 合成を行う　現在は画面で表示している内容をそのまま
      * @param bgBmp 背景のbitmap
+     * @param overlayReverse 
      * @return
      */
-    private Bitmap getFigureOverlayedBitmap(Bitmap bgBmp){
+    private Bitmap getFigureOverlayedBitmap(Bitmap bgBmp, int overlayReverse){
         // viewのサイズを取得
         int width = getWidth();
         int height = getHeight();
@@ -326,10 +341,11 @@ public class OverlayFigureView extends View {
         float transX = (getWidth() - scale*bgBmp.getWidth()) /2;
         float transY = (getHeight() - scale*bgBmp.getHeight()) /2;
         matrixBG.postTranslate(transX, transY); // 拡大縮小左上原点で
+        
         canvas.drawBitmap(bgBmp, matrixBG, null);            
         
         // Canvasにフィギュア描画
-        drawFigure(canvas);
+        drawFigure(canvas, overlayReverse);
 
         return newBitmap;
     }

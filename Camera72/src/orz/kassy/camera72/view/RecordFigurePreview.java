@@ -32,6 +32,7 @@ import android.view.ViewGroup;
  */
 public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Callback, PreviewCallback {
 
+    // 親Activityへのフィードバック時に用いる定数
     public static final int WORK_UTOMOST_RECORD = 0;
     public static final int WORK_LEGO_RECORED   = 1;
     public static final int WORK_ONESHOT        = 2;
@@ -52,8 +53,9 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
     Camera mCamera = null;
     private boolean mIsRecording = false;
     
-    // 露出固定がサポートされているか、　API Level14未満は問答無用でfalse
+    // 露出固定がサポートされているか否か。　API Level14未満は問答無用でfalse
     private boolean mIsAutoExposureLockSupported = false;
+
     // 撮影枚数
     private int mNumberOfPicture=1;
     private int mPictureCnt=0;
@@ -72,6 +74,7 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
     private int frontCameraId = -1;
     private int mCurrentCameraId=0;
 
+    
 
     /**
      * コンストラクタ
@@ -106,10 +109,13 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
     /**
      * カメラを切り替える
      */
-    public void changeCamera(int width, int height){
+    public int switchCamera(int width, int height){
+        int retVal = -100;
+        
         // 複数カメラがないとき
         if(frontCameraId == -1){
-            return;
+            // 背面カメラで返す
+            return CameraInfo.CAMERA_FACING_BACK;
         }
 
         // 現在利用しているカメラを解放
@@ -123,8 +129,10 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
         // カメラを切り替え
         if(mCurrentCameraId == frontCameraId){
             mCurrentCameraId = rearCameraId;
+            retVal = CameraInfo.CAMERA_FACING_BACK;
         }else if(mCurrentCameraId == rearCameraId){
             mCurrentCameraId = frontCameraId;
+            retVal = CameraInfo.CAMERA_FACING_FRONT;
         }
         
         mCamera = Camera.open(mCurrentCameraId);
@@ -134,6 +142,7 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
             e.printStackTrace();
         }
 
+        // プレビューサイズ再設定
         Camera.Parameters params = mCamera.getParameters();
         mSupportedPreviewSizes = params.getSupportedPreviewSizes();
         mPreviewSize = Camera72Utils.getOptimalPreviewSize(mSupportedPreviewSizes, width, height);
@@ -143,6 +152,9 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
         // プレビュー再開
         mCamera.setPreviewCallback(this);
         mCamera.startPreview();
+
+        // 戻り値
+        return retVal;
     }
     
     /**

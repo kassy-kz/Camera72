@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -50,11 +49,7 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
     
     private RecordFigurePreview mPreview;
     Camera mCamera;
-    int numberOfCameras;
-    int cameraCurrentlyLocked;
 
-    // The first rear facing camera
-    int defaultCameraId;
     private Handler mRecordUIHandler;
     static RecordActivity sSelf;
     private String[] mNumberList;
@@ -95,18 +90,6 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
 
         // 注意：この段階ではwidth, heightは取得不可能
         //Log.i(TAG,"layout width*height = " + mLinearLayout.getWidth() + ", " + mLinearLayout.getHeight());
-
-        // カメラの数を取得
-        numberOfCameras = Camera.getNumberOfCameras();
-
-        // カメラID
-        CameraInfo cameraInfo = new CameraInfo();
-        for (int i = 0; i < numberOfCameras; i++) {
-            Camera.getCameraInfo(i, cameraInfo);
-            if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK) {
-                defaultCameraId = i;
-            }
-        }
 
         // UIハンドラ
         mRecordUIHandler = new Handler();

@@ -17,6 +17,7 @@ import orz.kassy.tmpl.lib.Utils;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera.CameraInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,6 +62,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
     private String mDirectory = null;
     private FrameLayout mImageArea;
     private OverlayFigureView mOverlayFigureView;
+    private int mCurrentCamera;
 
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -254,7 +256,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
             // カメラチェンジ
             case OPTIONS_ITEM_ID_SWITCH:
                 Log.i(TAG, "switch");
-                mPreview.changeCamera(mPreview.getWidth(), mPreview.getHeight());
+                mCurrentCamera = mPreview.switchCamera(mPreview.getWidth(), mPreview.getHeight());
                 break;
 
             // 明るさ
@@ -302,11 +304,13 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
                 switch(mBackgroundType){
                     // 背景がカメラのときのみ、すぐにはbitmapが取得できないのでコールバック待ちにする
                     case BACKGROUND_TYPE_CAMERA:
+                        // 非同期処理でカメラプレビューからビットマップ取得
+                        // コールバックはonGetBitmap
                         mPreview.setGetBmpFlag(this);
                         break;
                     // それ以外はここで撮る
                     case BACKGROUND_TYPE_IMAGE:
-                        mOverlayFigureView.saveMergeBitmap(mBackgroundImageBitmap);
+                        mOverlayFigureView.saveMergeBitmap(mBackgroundImageBitmap, OverlayFigureView.OVERLAY_NORMAL);
                         Utils.showToast(this, R.string.complete_save_picture);
                         break;
                     default:
@@ -341,7 +345,12 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
      */
     @Override
     public void onGetBitmap(Bitmap bmp) {
-        mOverlayFigureView.saveMergeBitmap(bmp);
+        // カメラが自分撮りカメラの場合は、反転することが必要
+        if(mCurrentCamera == CameraInfo.CAMERA_FACING_FRONT){
+            mOverlayFigureView.saveMergeBitmap(bmp, OverlayFigureView.OVERLAY_REVERSE);
+        }else {
+            mOverlayFigureView.saveMergeBitmap(bmp, OverlayFigureView.OVERLAY_NORMAL);
+        }
         Utils.showToast(this, R.string.complete_save_picture);
     }
 
