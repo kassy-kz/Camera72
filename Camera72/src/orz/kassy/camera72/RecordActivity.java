@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import orz.kassy.camera72.view.*;
 import orz.kassy.camera72.view.RecordFigurePreview.OnFeedBackListener;
 import orz.kassy.tmpl.lib.Utils;
@@ -58,6 +59,13 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
     private int mNumberOfPicture=1;
     private FrameLayout mParentFrameLayout;
     private FrameLayout mFrameLayout;
+    private boolean mInstFlag = false;
+    
+    private TextView mSideTutorial1;
+    private TextView mSideTutorial2;
+    private TextView mSideTutorial3;
+    private TextView mSideTutorial4;
+    private TextView mSideTutorial5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,13 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         mParentFrameLayout.addView(grid,0, params);
 
+        // サイドチュートリアルのUI部品
+        mSideTutorial1 = (TextView) findViewById(R.id.side_tutorial_step1);
+        mSideTutorial2 = (TextView) findViewById(R.id.side_tutorial_step2);
+        mSideTutorial3 = (TextView) findViewById(R.id.side_tutorial_step3);
+        mSideTutorial4 = (TextView) findViewById(R.id.side_tutorial_step4);
+        mSideTutorial5 = (TextView) findViewById(R.id.side_tutorial_step5);
+        
         // カメラビューを生成して貼り付け
         mPreview = new RecordFigurePreview(this, this);
         mFrameLayout = (FrameLayout)findViewById(R.id.cameraSpaceView);
@@ -93,7 +108,7 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
 
         // UIハンドラ
         mRecordUIHandler = new Handler();
-
+        
     }
 
     /**
@@ -102,11 +117,6 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
     @Override
     protected void onResume() {
         super.onResume();
-
-        // カメラオープン
-//        mCamera = Camera.open();
-//        cameraCurrentlyLocked = defaultCameraId;
-//        mPreview.setCamera(mCamera);
 
         // スリープ禁止する
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);        
@@ -118,15 +128,6 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
     @Override
     protected void onPause() {
         super.onPause();
-
-        // カメラクローズ
-        if (mCamera != null) {
-//            mPreview.setCamera(null);
-//            mCamera.stopPreview();
-//            mCamera.setPreviewCallback(null);
-//            mCamera.release();
-//            mCamera = null;
-        }
 
         // スリープ禁止解除
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);        
@@ -159,6 +160,19 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height, Gravity.LEFT);
         Log.i(TAG,"  target width="+width+", height="+height);
         mFrameLayout.setLayoutParams(params);
+        
+        // 説明ダイアログを出す
+        if(mInstFlag == false){
+            mInstFlag = true;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.instruction_dialog_title);
+            builder.setMessage(R.string.instruction_dialog_message);
+            builder.setPositiveButton(R.string.alert_dialog_ok, null);
+            builder.setIcon(R.drawable.ic_main_56);
+            builder.setCancelable(false);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();     
+        }
     }
 
     /**
@@ -178,16 +192,21 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
             // 録画を終えた
             case RecordFigurePreview.WORK_UTOMOST_RECORD:
                 // フィギュ除去促しダイアログを出す
+                mSideTutorial2.setTextColor(getResources().getColor(R.color.white));
+                mSideTutorial3.setTextColor(getResources().getColor(R.color.red));
                 showRemoveFigureDialog(this, mRecordUIHandler, this);
                 break;
             // 背景撮影を終えた
             case RecordFigurePreview.WORK_BACKGROUND_SHOT:
                 // エンコード処理に入る
+                mSideTutorial4.setTextColor(getResources().getColor(R.color.white));
+                mSideTutorial5.setTextColor(getResources().getColor(R.color.red));
                 Log.i(TAG,"encode button");
                 mPreview.encodeButtonPressed(this);
                 break;
             // エンコードを終えた
             case RecordFigurePreview.WORK_ENCODE:
+                mSideTutorial5.setTextColor(getResources().getColor(R.color.white));
                 Utils.showToast(this, "エンコード終了しました");
                 break;
             default:
@@ -206,6 +225,8 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
     public void onDismiss(DialogInterface dialog) {
         Log.i(TAG,"shot background");
         // 背景撮影に入る
+        mSideTutorial3.setTextColor(getResources().getColor(R.color.white));
+        mSideTutorial4.setTextColor(getResources().getColor(R.color.red));
         mPreview.setBackgroundShotFlag(this);
     }
 
@@ -238,6 +259,8 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
                 break;
             case OPTIONS_ITEM_ID_SHUTTER:
                 // 撮影開始
+                mSideTutorial1.setTextColor(getResources().getColor(R.color.white));
+                mSideTutorial2.setTextColor(getResources().getColor(R.color.red));
                 mPreview.startRecord(mNumberOfPicture, this);
                 break;
              default:

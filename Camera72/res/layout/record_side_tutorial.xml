@@ -8,22 +8,32 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
+        android:id="@+id/side_tutorial_step1"
         android:textColor="@color/red"
-        android:text="手順１：あーだこーだ" />
+        android:text="step1：説明" />
         
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
+        android:id="@+id/side_tutorial_step2"
         android:layout_weight="1"
-        android:text="手順２：こーだそーだ" />
+        android:text="step2：フィギュア撮影" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:text="手順３：あーでこーら" />
+        android:id="@+id/side_tutorial_step3"
+        android:text="step3：フィギュア除去" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:text="手順４：こーらさわー" />
+        android:id="@+id/side_tutorial_step4"
+        android:text="step4：フィギュア背景撮影" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:id="@+id/side_tutorial_step5"
+        android:text="step5：エンコード" />
 </LinearLayout>

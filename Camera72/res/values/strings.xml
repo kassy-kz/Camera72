@@ -8,7 +8,7 @@
     <string name="ask_get_front_dialog_cancel">イラネ</string>
     <string name="ask_get_front_dialog_title">前景抽出しましょうか</string>
     <string name="ask_get_front_dialog_message">前景抽出しましょうか、その場合は撮影後にタイミングよく人形をかっさらうんだぜ</string>
-    <string name="remove_figure_dialog_title">３秒で人形を除去しな</string>
+    <string name="remove_figure_dialog_title">３秒で背景撮影に入ります. フィギュアを画面の外に出してください. \n この端末には触れないでください</string>
     <string name="strPickupExec">切り出し実行</string>
     <string name="description">72shot</string>
     <string name="extract_activity_label">抜き出し</string>
@@ -32,4 +32,6 @@
     <string name="encode_dialog_message">エンコードしています.お待ちください</string>
     <string name="record_dialog_title">撮影中</string>
     <string name="record_dialog_message">撮影中です. お待ちください. \n 端末に触れないでください</string>
+    <string name="instruction_dialog_title">説明</string>
+    <string name="instruction_dialog_message">端末を固定し、設定を確認してスタートボタンをタッチしてください. \n 撮影完了の合図の３秒後に背景撮影しますのでこの間にフィギュアを画面外に移動してください.</string>
 </resources>
