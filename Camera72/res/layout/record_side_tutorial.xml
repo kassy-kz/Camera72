@@ -29,7 +29,7 @@
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/side_tutorial_step4"
-        android:text="step4：フィギュア背景撮影" />
+        android:text="step4：背景撮影" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"

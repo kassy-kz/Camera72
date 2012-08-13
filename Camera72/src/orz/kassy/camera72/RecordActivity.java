@@ -157,7 +157,7 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
         }
         
         // 入れ子元 surfaceview のサイズを設定する
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height, Gravity.LEFT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height, Gravity.CENTER);
         Log.i(TAG,"  target width="+width+", height="+height);
         mFrameLayout.setLayoutParams(params);
         

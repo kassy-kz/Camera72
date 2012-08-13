@@ -22,7 +22,8 @@ public class MyGridView extends View{
         super.onDraw(canvas);
         // 全体背景
         canvas.drawColor(0xff111111);
-        drawGrid(canvas);
+        // デバッグ時のみグリッド表示
+        //drawGrid(canvas);
     }
     
     /**
