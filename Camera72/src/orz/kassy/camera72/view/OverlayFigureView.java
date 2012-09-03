@@ -6,6 +6,9 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import orz.kassy.camera72.R;
+import orz.kassy.tmpl.lib.Utils;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -188,6 +191,13 @@ public class OverlayFigureView extends View {
         // ビットマップ用意
         String targetPngFileUri = Camera72Utils.getTargetPngFileFullPath(mDirectory, mCurTarget);          
         mFigureBitmap = BitmapFactory.decodeFile(targetPngFileUri, mOpt);
+        // 抜き出しまだな場合
+        if(mFigureBitmap == null){
+            Utils.showToast(mContext, R.string.not_extract_message);
+            String targetJpgFileUri = Camera72Utils.getFgJpgFileFullPath(mDirectory, mCurTarget);          
+            mFigureBitmap = BitmapFactory.decodeFile(targetJpgFileUri, mOpt);
+            
+        }
         Log.i(TAG,"targetPngFile = "+targetPngFileUri);
         
         // OpenCV用オブジェクトを用意

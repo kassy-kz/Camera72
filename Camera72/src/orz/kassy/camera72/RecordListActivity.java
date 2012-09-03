@@ -62,9 +62,14 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
     private boolean mIsFromMain = false;    
     
     RecordListArrayAdapter mAdapter;
-    ArrayList<RecordListArrayItem> items;
+    ArrayList<RecordListArrayItem> mListItems;
     private AlertDialog cancelDialog;
     private Object listDialog;
+
+    private ListView mListView;
+
+    // 録画から抜き出し処理へのショートカットパスを作る
+    private boolean mShortcutFlag = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,9 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
         // メイン画面から直接呼ばれたか？
         if(from.equals(MainActivity.INTENT_EXTRA_FROM_MAIN)){
             mIsFromMain = true;
+        }else if(from.equals(MainActivity.INTENT_EXTRA_FROM_RECORD)){
+            mShortcutFlag = true;
+            mIsFromMain = false;            
         }else {
             mIsFromMain = false;            
         }
@@ -93,7 +101,7 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
 
         // カーソルのライフサイクル管理をアクティビティに任せます。
         startManagingCursor(cursor);
-        items = new ArrayList<RecordListArrayItem>();
+        mListItems = new ArrayList<RecordListArrayItem>();
         cursor.moveToFirst();
 
         // 一行ずつ値を取得
@@ -106,18 +114,27 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
             int height = cursor.getInt(cursor.getColumnIndex(Camera72SQLiteOpenHelper.COLUMN_NAME_HEIGHT));
             int fgCnt =   cursor.getInt(cursor.getColumnIndex(Camera72SQLiteOpenHelper.COLUMN_NAME_FG_COUNT));
             int bgCnt =   cursor.getInt(cursor.getColumnIndex(Camera72SQLiteOpenHelper.COLUMN_NAME_BG_COUNT));
+            //int extractDone =   cursor.getInt(cursor.getColumnIndex(Camera72SQLiteOpenHelper.COLUMN_NAME_EXTRACT_DONE));
 
             RecordListArrayItem item
               = new RecordListArrayItem(this, directory, thumbPath, name, date, fgCnt, bgCnt, width, height);
-            items.add(item);
+            mListItems.add(item);
             cursor.moveToNext();
         }
-        mAdapter = new RecordListArrayAdapter(this, R.layout.record_list_row, items);
+        mAdapter = new RecordListArrayAdapter(this, R.layout.record_list_row, mListItems);
 
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(this);
-        listView.setOnItemLongClickListener(this);
+        mListView = (ListView) findViewById(R.id.list_view);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
+        mListView.setOnItemLongClickListener(this);
+        
+        // 録画から抜き出しへのショートカットパスを作る
+        if(mShortcutFlag){
+            mShortcutFlag = false;
+            mSelectingItem = mListItems.get(mListItems.size()-1);
+            startExtractActivity();
+        }
+        
     }
 
     @Override
@@ -132,7 +149,7 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
      */
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-        mSelectingItem = items.get(position);
+        mSelectingItem = mListItems.get(position);
         String dir = mSelectingItem.getTitle();
         Log.i(TAG,"onItemClick : " + dir);
 
@@ -158,7 +175,7 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
      */
     @Override
     public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-        mSelectingItem = items.get(position);
+        mSelectingItem = mListItems.get(position);
         Log.i(TAG,"onLongItemClick : ");
         // 消去処理を行う。消去確認ダイアログを出す。
         showDialog(DIALOG_DELETE_ITEM);
@@ -227,20 +244,16 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
      */
     @Override
     public void onClick(DialogInterface dialog, int which) {
+
+        // ダイアログが行動選択ダイアログだった
         if(dialog.equals(listDialog)){
             String[] items = getResources().getStringArray(R.array.select_action_dialog_items);
             Intent intent; 
             switch(which){
-                // extrace
+                // extract
                 case 0:
                     Log.i(TAG,"case 0 extract "+mSelectingItem.getDirectory());
-                    intent = new Intent(this, ExtractPictureActivity.class);
-                    intent.putExtra(INTENT_EX_FG_COUNT, mSelectingItem.getFgCnt());
-                    intent.putExtra(INTENT_EX_DIRECTORY, mSelectingItem.getDirectory());
-                    intent.putExtra(INTENT_EX_BG_COUNT, mSelectingItem.getBgCnt());
-                    intent.putExtra(INTENT_EX_WIDTH, mSelectingItem.getWidth());
-                    intent.putExtra(INTENT_EX_HEIGHT, mSelectingItem.getHeight());
-                    startActivity(intent);
+                    startExtractActivity();
                     break;
                 // view
                 case 1:
@@ -280,19 +293,42 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
                     break;
             }
         }
+        
         // ダイアログが消去ダイアログだった
         if(dialog.equals(cancelDialog)){
             switch(which){
                 // 消去しても良い場合
                 case DialogInterface.BUTTON_POSITIVE:
                     Log.i(TAG,"delete : "+mSelectingItem.getDirectory());
+
                     // フォルダを消去
                     Utils.deleteFolder(mSelectingItem.getDirectory());
+
                     // データベースから消去
                     Camera72Utils.deleteDatabaseRow(this, mSelectingItem.getDirectory());
-                    Utils.showToast(this, mSelectingItem.getTitle() + "消去しました");
+                    Utils.showToast(this, R.string.delete_complete);
+                    
+                    // リスト更新 うまくいかない...
+//                    mAdapter.notifyDataSetChanged();
+//                    mListView.invalidateViews();
+                    // 自分再度呼び出し
+                    Intent intent = new Intent(this, RecordListActivity.class);
+                    intent.putExtra(MainActivity.INTENT_EXTRA, MainActivity.INTENT_EXTRA_FROM_MAIN);
+                    startActivity(intent);
+                    finish();
                     break;
             }
         }
+    }
+
+    private void startExtractActivity() {
+        Intent intent;
+        intent = new Intent(this, ExtractPictureActivity.class);
+        intent.putExtra(INTENT_EX_FG_COUNT, mSelectingItem.getFgCnt());
+        intent.putExtra(INTENT_EX_DIRECTORY, mSelectingItem.getDirectory());
+        intent.putExtra(INTENT_EX_BG_COUNT, mSelectingItem.getBgCnt());
+        intent.putExtra(INTENT_EX_WIDTH, mSelectingItem.getWidth());
+        intent.putExtra(INTENT_EX_HEIGHT, mSelectingItem.getHeight());
+        startActivity(intent);
     }
 }

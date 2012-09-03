@@ -73,6 +73,7 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
     private int rearCameraId = -1;
     private int frontCameraId = -1;
     private int mCurrentCameraId=0;
+    private int mCompCountMax;
 
     
 
@@ -279,20 +280,20 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
         if(mIsAutoExposureLockSupported){
             Log.i(TAG,"exposure is locked");            
             mBackgroundCnt = 0;
+            mCompCountMax = 1;
         // 露出ロックができていない場合は、露出絨毯爆撃
         } else {
-            int compCountMax;
             Log.i(TAG,"comp min, max = "+mMinComp + ","+mMaxComp);
 
             // 露出補正ステップを取得 -> 実は意味がなかった
             // compStep = params.getExposureCompensationStep();
             
             // 露出補正して撮影する枚数をセット
-            compCountMax = mMaxComp - mMinComp + 1;
-            Camera72Utils.updateDatabaseBgCnt(con, mSeqDir, compCountMax);
+            mCompCountMax = mMaxComp - mMinComp + 1;
+            Camera72Utils.updateDatabaseBgCnt(con, mSeqDir, mCompCountMax);
 
             // カウンターセット（カウンターは０を含むので１引いとく）
-            mBackgroundCnt = compCountMax-1;
+            mBackgroundCnt = mCompCountMax-1;
 
             // とりま露出補正は一番下に
             params.setExposureCompensation(mMinComp);
@@ -604,7 +605,7 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
         @Override
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute");
-            mBackgroundMax = mBackgroundCnt+1;
+            mBackgroundMax = mCompCountMax;
 
             // ダイアログ出す
             dialog = new ProgressDialog(context);

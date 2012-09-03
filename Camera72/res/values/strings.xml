@@ -3,6 +3,8 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">HRカメラ</string>
+    <string name="record_figure">フィギュアを撮影する</string>
+    <string name="record_list">撮影したフィギュア一覧</string>
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="ask_get_front_dialog_cancel">イラネ</string>
@@ -18,6 +20,7 @@
     <string name="dialog_message_delete_item">を消去してよろしいですか</string>
     <string name="dialog_title_delete_item">アイテム消去</string>
     <string name="alert_dialog_delete">消去</string>
+    <string name="not_extract_message">この画像は抜き出し処理がまだです</string>
     <string name="rotate_left">左に回転</string>
     <string name="rotate_right">右に回転</string>
     <string name="figure_exp_up">フィギュアを明るく</string>
@@ -32,6 +35,11 @@
     <string name="encode_dialog_message">エンコードしています.お待ちください</string>
     <string name="record_dialog_title">撮影中</string>
     <string name="record_dialog_message">撮影中です. お待ちください. \n 端末に触れないでください</string>
+    <string name="record_complete_dialog_title">撮影完了</string>
+    <string name="record_complete_dialog_message">撮影完了しました。続いて抜き出し処理を行いますか？</string>
+    <string name="extract_complete_dialog_title">抜き出し完了</string>
+    <string name="extract_complete_dialog_message">抜き出し処理完了しました。</string>
     <string name="instruction_dialog_title">説明</string>
     <string name="instruction_dialog_message">端末を固定し、設定を確認してスタートボタンをタッチしてください. \n 撮影完了の合図の３秒後に背景撮影しますのでこの間にフィギュアを画面外に移動してください.</string>
+    <string name="delete_complete">消去しました</string>
 </resources>

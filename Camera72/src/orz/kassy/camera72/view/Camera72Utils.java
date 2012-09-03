@@ -26,29 +26,27 @@ import android.util.Log;
 import orz.kassy.camera72.*;
 public class Camera72Utils {
 
-    // public static final int SEQ_SHOT_MAX = 100;
     public static final String PREF_FILE_NAME = "pref_file";
 
     public static final String APP_DIR_ON_SD = "camera72";
     
-    public static final String JPG_FILE_DIR = "front_jpg";
+    public static final String JPG_FILE_DIR = ".front_jpg";
     public static final String JPG_FILE_HEADER = "front_jpg_";
     public static final String JPG_FILE_FOOTER = ".jpg";
 
-    public static final String PNG_FILE_DIR = "png";
+    public static final String PNG_FILE_DIR = ".png";
     public static final String PNG_FILE_HEADER = "ext_png_";
     public static final String PNG_FILE_FOOTER = ".png";
 
-    public static final String BIN_FILE_DIR =  "bin";
+    public static final String BIN_FILE_DIR =  ".bin";
     public static final String BIN_FILE_HEADER = "front_bin_";
     public static final String BIN_FILE_FOOTER = ".bin";
 
     private static final String BG_BIN_FILE_HEADER = "back_bin_";
-
-    private static final String BG_JPG_FILE_DIR = "back_jpg";
+    private static final String BG_JPG_FILE_DIR = ".back_jpg";
     private static final String BG_JPG_FILE_HEADER = "back_jpg_";
 
-    public static final String MASK_FILE_DIR    = "mask";
+    public static final String MASK_FILE_DIR    = ".mask";
     public static final String MASK_FILE_HEADER = "72shot_mask";
     public static final String MASK_FILE_FOOTER = ".png";
     
@@ -535,7 +533,8 @@ public class Camera72Utils {
         // 閉じる
         db.close();
     }
-
+   
+    
     /**
      * データベースのwidth, heightを更新する
      * @param con

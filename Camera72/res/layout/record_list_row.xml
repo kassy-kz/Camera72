@@ -26,6 +26,7 @@
           android:layout_weight="1"
           android:layout_height="fill_parent"
           android:orientation="vertical"
+          android:visibility="gone"
           >
           <TextView 
               android:layout_width="fill_parent"
@@ -47,6 +48,7 @@
           android:layout_weight="1"
           android:layout_height="fill_parent"
           android:orientation="vertical"
+          android:visibility="gone"
           >
           <TextView 
               android:layout_width="fill_parent"

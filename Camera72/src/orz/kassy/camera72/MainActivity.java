@@ -13,6 +13,7 @@ public class MainActivity extends SherlockListActivity {
 
     public static final String INTENT_EXTRA = "extra";
     public static final String INTENT_EXTRA_FROM_MAIN = "from_main";
+    public static final String INTENT_EXTRA_FROM_RECORD = "from_record";
 
     private static final String TAG = "Main";
     private ArrayAdapter<String> mAdapter;
@@ -36,9 +37,11 @@ public class MainActivity extends SherlockListActivity {
         
         setContentView(R.layout.main);
         String[] list = new String[activities.length/2];
-        for (int i = 0; i < list.length; i++) {
-            list[i] = (String)activities[i * 2];
-        }
+//        for (int i = 0; i < list.length; i++) {
+//            list[i] = (String)activities[i * 2];
+//        }
+        list[0] = getString(R.string.record_figure);
+        list[1] = getString(R.string.record_list);
         mAdapter = new ArrayAdapter<String>(this, R.layout.main_list_row, list);
         setListAdapter(mAdapter);
     }

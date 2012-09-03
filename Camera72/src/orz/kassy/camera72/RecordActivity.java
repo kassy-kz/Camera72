@@ -13,15 +13,19 @@ import com.actionbarsherlock.view.MenuItem;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnDismissListener;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import orz.kassy.camera72.view.*;
@@ -47,12 +51,14 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
     private static final int OPTIONS_ITEM_ID_DOWN    = 1;
     private static final int OPTIONS_ITEM_ID_FOCUS   = 2;
     private static final int OPTIONS_ITEM_ID_SHUTTER = 3;
-    
+
+    // 自分インスタンス
+    static RecordActivity sSelf;
+    // カメラプレビューView
     private RecordFigurePreview mPreview;
     Camera mCamera;
 
     private Handler mRecordUIHandler;
-    static RecordActivity sSelf;
     private String[] mNumberList;
     private int[] mNumberListInteger;
     
@@ -164,10 +170,16 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
         // 説明ダイアログを出す
         if(mInstFlag == false){
             mInstFlag = true;
+            // レイアウトファイルから呼び出し
+            LayoutInflater inflater = LayoutInflater.from(this);
+            final View instDialogView = inflater.inflate(R.layout.inst_dialog, null);
+            TextView instText = (TextView) instDialogView.findViewById(R.id.inst_text);
+            instText.setText(R.string.instruction_dialog_message);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.instruction_dialog_title);
-            builder.setMessage(R.string.instruction_dialog_message);
             builder.setPositiveButton(R.string.alert_dialog_ok, null);
+            builder.setView(instDialogView);
             builder.setIcon(R.drawable.ic_main_56);
             builder.setCancelable(false);
             final AlertDialog alertDialog = builder.create();
@@ -207,7 +219,31 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
             // エンコードを終えた
             case RecordFigurePreview.WORK_ENCODE:
                 mSideTutorial5.setTextColor(getResources().getColor(R.color.white));
-                Utils.showToast(this, "エンコード終了しました");
+                
+                //　そのまま抜き出し処理へ移行するか尋ねるダイアログ
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.record_complete_dialog_title);
+                builder.setMessage(R.string.record_complete_dialog_message);
+                builder.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // 抜き出しへのショートカット
+                        Intent intent = new Intent(sSelf, RecordListActivity.class);
+                        intent.putExtra(MainActivity.INTENT_EXTRA, MainActivity.INTENT_EXTRA_FROM_RECORD);
+                        startActivity(intent);
+                        Utils.showToast(sSelf, "お待ちください");
+                    }
+                });
+                builder.setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // 何もしない
+                    }
+                });
+                builder.setIcon(R.drawable.ic_main_56);
+                builder.setCancelable(false);
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.show();     
+
+                
                 break;
             default:
                 break;

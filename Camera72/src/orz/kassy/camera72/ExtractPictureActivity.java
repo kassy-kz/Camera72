@@ -19,6 +19,7 @@ import com.actionbarsherlock.view.MenuItem;
 import orz.kassy.camera72.view.RecordFigurePreview;
 import orz.kassy.camera72.view.Camera72Utils;
 import orz.kassy.tmpl.lib.Utils;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,6 +51,7 @@ public class ExtractPictureActivity extends SherlockActivity implements ActionBa
     private static final int REQUEST_CODE_LIST_SELECT = 0;
     private static final int OPTIONS_ITEM_ID_EXTRACT = 0;
     private static int sTH = 70;
+    private static ExtractPictureActivity sSelf;
     private ImageView mImageViewOrigin;
     private ImageView mImageViewCut;
     private int mWidth;
@@ -66,6 +68,7 @@ public class ExtractPictureActivity extends SherlockActivity implements ActionBa
         setTheme(R.style.Theme_Sherlock); 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.extract_picture);
+        sSelf = this;
         
         // ActionBar関連セッティング（リスト）
         mColorList =  getResources().getIntArray(R.array.list_extract_bg_color);
@@ -490,6 +493,21 @@ public class ExtractPictureActivity extends SherlockActivity implements ActionBa
         @Override
         protected void onPostExecute(Boolean result) {
             dialog.dismiss();
+            //Camera72Utils.updateDatabaseExtractDone(mContext, mDirectory, 1);
+            AlertDialog.Builder builder = new AlertDialog.Builder(sSelf);
+            builder.setTitle(R.string.extract_complete_dialog_title);
+            builder.setMessage(R.string.extract_complete_dialog_message);
+            builder.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // 終了する
+                    sSelf.finish();
+                }
+            });
+            builder.setIcon(R.drawable.ic_main_56);
+            builder.setCancelable(false);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();     
+
         }
 
         @Override

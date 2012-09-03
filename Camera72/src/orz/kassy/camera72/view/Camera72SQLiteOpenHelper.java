@@ -15,6 +15,7 @@ public class Camera72SQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_HEIGHT    = "height";
     public static final String COLUMN_NAME_FG_COUNT    = "fg_count";
     public static final String COLUMN_NAME_BG_COUNT    = "bg_count";
+    public static final String COLUMN_NAME_EXTRACT_DONE = "extract_done";
     
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "camera72.db";
@@ -30,14 +31,15 @@ public class Camera72SQLiteOpenHelper extends SQLiteOpenHelper {
         // テーブル作成
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME
                 + " (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "  " + COLUMN_NAME_NAME       + " TEXT,"
-                + "  " + COLUMN_NAME_DATE       + " INTEGER,"
-                + "  " + COLUMN_NAME_DIRECTORY  +" TEXT,"
-                + "  " + COLUMN_NAME_THUMBNAIL  +" TEXT,"
-                + "  " + COLUMN_NAME_WIDTH      +" INTEGER,"
-                + "  " + COLUMN_NAME_HEIGHT     +" INTEGER,"
-                + "  " + COLUMN_NAME_FG_COUNT   +" INTEGER,"
-                + "  " + COLUMN_NAME_BG_COUNT   +" INTEGER);");
+                + "  " + COLUMN_NAME_NAME         + " TEXT,"
+                + "  " + COLUMN_NAME_DATE         + " INTEGER,"
+                + "  " + COLUMN_NAME_DIRECTORY    +" TEXT,"
+                + "  " + COLUMN_NAME_THUMBNAIL    +" TEXT,"
+                + "  " + COLUMN_NAME_WIDTH        +" INTEGER,"
+                + "  " + COLUMN_NAME_HEIGHT       +" INTEGER,"
+//                + "  " + COLUMN_NAME_EXTRACT_DONE +" INTEGER default 0"
+                + "  " + COLUMN_NAME_FG_COUNT     +" INTEGER,"
+                + "  " + COLUMN_NAME_BG_COUNT     +" INTEGER);");
     }
 
     @Override

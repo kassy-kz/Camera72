@@ -54,7 +54,9 @@ public class RecordListArrayAdapter extends BaseAdapter{
 		TextView textView = (TextView)view.findViewById(R.id.db_row_name);
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(item.getDateMillis());
-		String strDate = cal.get(Calendar.YEAR)+"年"+(cal.get(Calendar.MONTH)+1)+"月"+cal.get(Calendar.DAY_OF_MONTH)+"日  "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
+		String minute = cal.get(Calendar.MINUTE) <10 ? "0"+cal.get(Calendar.MINUTE) : ""+cal.get(Calendar.MINUTE); 
+        String hour = cal.get(Calendar.HOUR_OF_DAY) <10 ? "0"+cal.get(Calendar.HOUR_OF_DAY) : ""+cal.get(Calendar.HOUR_OF_DAY); 
+		String strDate = cal.get(Calendar.YEAR)+"年"+(cal.get(Calendar.MONTH)+1)+"月"+cal.get(Calendar.DAY_OF_MONTH)+"日  "+hour+":"+minute;
 		textView.setText(strDate);
 
         TextView textWidth = (TextView)view.findViewById(R.id.db_row_width);
