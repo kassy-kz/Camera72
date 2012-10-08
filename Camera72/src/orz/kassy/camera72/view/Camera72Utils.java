@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import orz.kassy.tmpl.lib.Utils;
 import android.app.AlertDialog;
@@ -49,7 +51,14 @@ public class Camera72Utils {
     public static final String MASK_FILE_DIR    = ".mask";
     public static final String MASK_FILE_HEADER = "72shot_mask";
     public static final String MASK_FILE_FOOTER = ".png";
-    
+
+    /**
+     * 合成画像出力ファイルに関する
+     */
+    public static final String OUTPUT_FILE_DIR    = "HRCamera";
+    public static final String OUTPUT_FILE_HEADER = "HR_";
+    public static final String OUTPUT_FILE_FOOTER = ".jpg";
+
     public static final boolean CONFIG_USE_SDCARD = true;
     private static final String CAMERA_SIZE_WIDTH = "camera_width";
     private static final String CAMERA_SIZE_HEIGHT = "camera_height";
@@ -613,4 +622,21 @@ public class Camera72Utils {
         db.close();
     }
 
+    
+    /**
+     * 現在時刻を取得して適当にフォーマットして文字列にして返す
+     * フォーマットはyyyymmddhhmmss
+     * @return 文字列　いまの時刻を表す
+     */
+    public static String getCurrentTimeString(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        String second = cal.get(Calendar.SECOND) <10 ? "0"+cal.get(Calendar.SECOND) : ""+cal.get(Calendar.SECOND); 
+        String minute = cal.get(Calendar.MINUTE) <10 ? "0"+cal.get(Calendar.MINUTE) : ""+cal.get(Calendar.MINUTE); 
+        String hour = cal.get(Calendar.HOUR_OF_DAY) <10 ? "0"+cal.get(Calendar.HOUR_OF_DAY) : ""+cal.get(Calendar.HOUR_OF_DAY); 
+
+        String strDate = cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH)+1) + cal.get(Calendar.DAY_OF_MONTH) + hour + minute + second;
+        return strDate;
+    }
+    
 }

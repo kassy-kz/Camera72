@@ -27,6 +27,11 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+
+/**
+ * 画像合成を行うアクティビティ
+ * @author kashimoto
+ */
 public class OverlayImageActivity extends SherlockActivity implements OnClickListener, OnFeedBackListener, OnGetBitmapListener {
 
     public static final String BACKGROUND_TYPE = "bgtype";
@@ -348,6 +353,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
         // カメラが自分撮りカメラの場合は、反転することが必要
         if(mCurrentCamera == CameraInfo.CAMERA_FACING_FRONT){
             mOverlayFigureView.saveMergeBitmap(bmp, OverlayFigureView.OVERLAY_REVERSE);
+        // 外向きカメラの場合は、そのまま合成保存
         }else {
             mOverlayFigureView.saveMergeBitmap(bmp, OverlayFigureView.OVERLAY_NORMAL);
         }
@@ -357,9 +363,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
-        
+        // DO nothing
     }
-
 
 }

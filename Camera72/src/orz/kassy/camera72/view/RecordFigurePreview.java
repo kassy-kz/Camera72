@@ -26,9 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A simple wrapper around a Camera and a SurfaceView that renders a centered preview of the Camera
- * to the surface. We need to center the SurfaceView because not all devices have cameras that
- * support preview sizes at the same aspect ratio as the device's display.
+ * 本アプリで用いるカメラプレビュー
  */
 public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Callback, PreviewCallback {
 
@@ -75,7 +73,6 @@ public class RecordFigurePreview extends ViewGroup implements SurfaceHolder.Call
     private int mCurrentCameraId=0;
     private int mCompCountMax;
 
-    
 
     /**
      * コンストラクタ

@@ -1,5 +1,9 @@
 package orz.kassy.camera72.view;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -14,6 +18,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Bitmap.CompressFormat;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -142,8 +148,19 @@ public class OverlayFigureView extends View {
         // 現在の現実的な案 bitmap重畳保存
         Bitmap bmp2 = getFigureOverlayedBitmap(backgroundBmp, overlayReverse);
 
-        // ギャラリーに保存する
-        MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bmp2, "72shot.jpg", "Created by camera72");
+        // 合成画像を保存する
+        // 旧処理　これだとギャラリーに保存するだけ
+        // MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bmp2, "72shot.jpg", "Created by camera72");
+        // 自前のフォルダに保存する
+        String dir = Camera72Utils.APP_DIR_ON_SD +"/" + Camera72Utils.OUTPUT_FILE_DIR;
+        String filename = Camera72Utils.getCurrentTimeString();
+        try {
+            Utils.saveBitmapAsJpgAtSdAndMediaScan(mContext, bmp2, dir, filename);
+            //Utils.saveBitmapAsJpgAtSdAnd(bmp2, dir , filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     /**
