@@ -250,12 +250,12 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
             String[] items = getResources().getStringArray(R.array.select_action_dialog_items);
             Intent intent; 
             switch(which){
-                // extract
+                // 抜き出し処理を行う
                 case 0:
                     Log.i(TAG,"case 0 extract "+mSelectingItem.getDirectory());
                     startExtractActivity();
                     break;
-                // view
+                // 見る
                 case 1:
                     Log.i(TAG,"case 1 BACKGROUND_TYPE_NONE ");
                     intent = new Intent(this, OverlayImageActivity.class);
@@ -267,7 +267,7 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
                     intent.putExtra(INTENT_EX_HEIGHT, mSelectingItem.getHeight());
                     startActivity(intent);
                     break;
-                // overlay image
+                // 写真に重ねる
                 case 2:
                     Log.i(TAG,"case 1 BACKGROUND_TYPE_IMAGE ");
                     intent = new Intent(this, OverlayImageActivity.class);
@@ -279,7 +279,7 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
                     intent.putExtra(INTENT_EX_HEIGHT, mSelectingItem.getHeight());
                     startActivity(intent);
                     break;
-                // overlay shot
+                // カメラに重ねる
                 case 3: 
                     Log.i(TAG,"case 1 BACKGROUND_TYPE_CAMERA ");
                     intent = new Intent(this, OverlayImageActivity.class);

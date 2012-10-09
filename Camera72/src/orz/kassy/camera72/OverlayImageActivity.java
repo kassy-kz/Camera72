@@ -128,6 +128,18 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
         }
 	}
     
+    /**
+     * onResume
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 簡単な使い方トーストを出す。（写真に重ねあわせ、の場合は後で）
+        if (mBackgroundType != BACKGROUND_TYPE_IMAGE) {
+            Utils.showToast(this, R.string.overlay_inst_message);
+        }
+    }
+    
     
     /**
      * 別アクティビティから帰ってきたときの処理
@@ -166,6 +178,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
                 is = getContentResolver().openInputStream(uri);
                 mBackgroundImageBitmap = BitmapFactory.decodeStream(is);
                 mBackgroudImageView.setImageBitmap(mBackgroundImageBitmap);
+                Utils.showToast(this, R.string.overlay_inst_message);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

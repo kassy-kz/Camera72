@@ -21,6 +21,7 @@
     <string name="dialog_title_delete_item">アイテム消去</string>
     <string name="alert_dialog_delete">消去</string>
     <string name="not_extract_message">この画像は抜き出し処理がまだです</string>
+    <string name="overlay_inst_message">タップorドラッグでフィギュアを移動します \n 二本指ドラッグでフィギュア撮影時の動きを再現します</string>
     <string name="rotate_left">左に回転</string>
     <string name="rotate_right">右に回転</string>
     <string name="figure_exp_up">フィギュアを明るく</string>
