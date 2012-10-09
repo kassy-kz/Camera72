@@ -57,7 +57,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
 
     // フィギュアの画像を調整するためのパラメータ
     private double mCvScalar = 1.d;
-    private Size mCvSize;
+    private Size mCvSize = new Size(1.d, 1.d);
     
     // 他
     private int mBackgroundType = BACKGROUND_TYPE_NONE;
@@ -220,7 +220,7 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
         subRotate.add(Menu.NONE, OPTIONS_ITEM_ID_ROTATE_UP,   0, R.string.rotate_right);
         subRotate.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        SubMenu subExp = menu.addSubMenu("Param");
+        SubMenu subExp = menu.addSubMenu("Figure");
         subExp.add(Menu.NONE, OPTIONS_ITEM_ID_EXP_FIGURE_UP, 0, R.string.figure_exp_up);
         subExp.add(Menu.NONE, OPTIONS_ITEM_ID_EXP_FIGURE_DOWN,   0, R.string.figure_exp_down);
         subExp.add(Menu.NONE, OPTIONS_ITEM_ID_FEATHER_FIGURE_UP, 0, R.string.figure_feather_up);
@@ -264,31 +264,27 @@ public class OverlayImageActivity extends SherlockActivity implements OnClickLis
                 mCurrentCamera = mPreview.switchCamera(mPreview.getWidth(), mPreview.getHeight());
                 break;
 
-            // 明るさ
+            // 明るさアップ
             case OPTIONS_ITEM_ID_EXP_FIGURE_UP:
                 mCvScalar+=0.2d;
                 mOverlayFigureView.setCvBrightScalar(mCvScalar);
                 break;
 
+            // 明るさダウン(ただしAも下がって透明になってしまう)
             case OPTIONS_ITEM_ID_EXP_FIGURE_DOWN:
-                mCvSize.height-=2;
-                mCvSize.width-=2;
-                if(mCvSize.height<1){
-                    mCvSize.height=1;
-                    mCvSize.width=1;
-                }
-                mOverlayFigureView.setCvGaussianSize(mCvSize);
+                mCvScalar-=0.2d;
+                mOverlayFigureView.setCvBrightScalar(mCvScalar);
                 break;
 
             // ぼかし
             case OPTIONS_ITEM_ID_FEATHER_FIGURE_UP:
-                mCvSize.height+=2;
-                mCvSize.width+=2;
+                mCvSize.height+=20.d;
+                mCvSize.width+=20.d;
                 mOverlayFigureView.setCvGaussianSize(mCvSize);
                 break;
             case OPTIONS_ITEM_ID_FEATHER_FIGURE_DOWN:
-                mCvSize.height-=2;
-                mCvSize.width-=2;
+                mCvSize.height-=20.d;
+                mCvSize.width-=20.d;
                 if(mCvSize.height<1){
                     mCvSize.height=1;
                     mCvSize.width=1;

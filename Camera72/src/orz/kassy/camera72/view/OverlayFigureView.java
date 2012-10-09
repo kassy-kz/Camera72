@@ -126,10 +126,12 @@ public class OverlayFigureView extends View {
      */
     public void setCvGaussianSize(Size gaussSize) {
         mCvGaussianSize = gaussSize;
+        createFigureBitmap();
     }
 
     /**
      * 明るさ調整に使うCvScalarを設定する
+     * @param brightScalar
      */
     public void setCvBrightScalar(double brightScalar) {
         mCvBrightScalar = brightScalar;
