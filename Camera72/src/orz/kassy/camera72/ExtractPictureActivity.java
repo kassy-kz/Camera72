@@ -320,8 +320,8 @@ public class ExtractPictureActivity extends SherlockActivity implements ActionBa
         // (2) 輪郭を抽出します
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat(matMask.height(),matMask.width(),CvType.CV_8UC1);
-        int mode = Imgproc.CV_RETR_EXTERNAL;
-        int method = Imgproc.CV_CHAIN_APPROX_SIMPLE;
+        int mode = Imgproc.RETR_EXTERNAL;
+        int method = Imgproc.CHAIN_APPROX_SIMPLE;
         Imgproc.findContours(matMask, contours, hierarchy, mode, method);
         
         // (3) 抽出した輪郭の内部を塗りつぶします
