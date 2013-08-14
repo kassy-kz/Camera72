@@ -1,7 +1,7 @@
 package orz.kassy.camera72.view;
 
 import orz.kassy.camera72.R;
-import orz.kassy.tmpl.lib.Utils;
+import orz.kassy.camera72.view.Utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

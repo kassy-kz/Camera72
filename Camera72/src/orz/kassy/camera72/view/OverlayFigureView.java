@@ -1,7 +1,5 @@
 package orz.kassy.camera72.view;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.opencv.core.Core;
@@ -11,16 +9,12 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import orz.kassy.camera72.R;
-import orz.kassy.tmpl.lib.Utils;
-
+import orz.kassy.camera72.view.Utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Bitmap.CompressFormat;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;

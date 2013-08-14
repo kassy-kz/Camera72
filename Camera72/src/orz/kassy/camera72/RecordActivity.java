@@ -31,7 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import orz.kassy.camera72.view.*;
 import orz.kassy.camera72.view.RecordFigurePreview.OnFeedBackListener;
-import orz.kassy.tmpl.lib.Utils;
+
 
 /**
  * フィギュアの撮影を行うアクティビティ

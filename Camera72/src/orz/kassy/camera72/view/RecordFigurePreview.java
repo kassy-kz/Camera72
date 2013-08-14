@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import orz.kassy.camera72.R;
-import orz.kassy.tmpl.lib.Utils;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;

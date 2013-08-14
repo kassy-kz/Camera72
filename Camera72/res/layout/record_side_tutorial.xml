@@ -10,34 +10,34 @@
         android:layout_weight="1"
         android:id="@+id/side_tutorial_step1"
         android:textColor="@color/red"
-        android:text="step1：スマホを固定してください" />
+        android:text="@string/inst_step1" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/side_tutorial_step2"
-        android:text="step2：フィギュア撮影します" />
+        android:text="@string/inst_step2" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/side_tutorial_step3"
-        android:text="step3：フィギュアをどかします" />
+        android:text="@string/inst_step3" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/side_tutorial_step4"
-        android:text="step4：背景撮影" />
+        android:text="@string/inst_step4" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/side_tutorial_step5"
-        android:text="step5：エンコード" />
+        android:text="@string/inst_step5" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:text="※ step2からstep4の間はスマホに触れないでください" />
+        android:text="@string/inst_ext" />
 </LinearLayout>

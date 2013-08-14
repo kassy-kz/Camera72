@@ -18,7 +18,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import orz.kassy.camera72.view.RecordFigurePreview;
 import orz.kassy.camera72.view.Camera72Utils;
-import orz.kassy.tmpl.lib.Utils;
+import orz.kassy.camera72.view.Utils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;

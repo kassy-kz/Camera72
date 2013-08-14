@@ -56,7 +56,7 @@ public class CustomDialogFragment extends DialogFragment {
                     case 0:
                         mMode =1;
                         TextView tv = (TextView) dialog.findViewById(R.id.custom_dialog_message);
-                        tv.setText("フィギュア撮影完了の３秒後に背景撮影をしますので、フィギュアを画面外に出して下さい。");
+                        tv.setText(getActivity().getString(R.string.inst_string2));
                         Button btn = (Button)dialog.findViewById(R.id.positive_button);
                         btn.setText("Close");
                         break;

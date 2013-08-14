@@ -9,7 +9,7 @@ import orz.kassy.camera72.view.Camera72SQLiteOpenHelper;
 import orz.kassy.camera72.view.Camera72Utils;
 import orz.kassy.camera72.view.RecordListArrayAdapter;
 import orz.kassy.camera72.view.RecordListArrayItem;
-import orz.kassy.tmpl.lib.Utils;
+import orz.kassy.camera72.view.Utils;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;

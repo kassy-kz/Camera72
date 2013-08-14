@@ -57,7 +57,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="4"
                     android:lineSpacingExtra="6dp"
-                    android:text="端末を固定し、設定をあわせてStartボタンでフィギュアの撮影開始です。"
+                    android:text="@string/inst_string1"
                     android:textColor="#111111"
                     android:textSize="16sp" />
 

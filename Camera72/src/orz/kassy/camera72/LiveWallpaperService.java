@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import orz.kassy.camera72.view.Camera72SQLiteOpenHelper;
 import orz.kassy.camera72.view.Camera72Utils;
-import orz.kassy.tmpl.lib.Utils;
+import orz.kassy.camera72.view.Utils;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

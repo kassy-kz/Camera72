@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import orz.kassy.tmpl.lib.Utils;
+import orz.kassy.camera72.view.Utils;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
