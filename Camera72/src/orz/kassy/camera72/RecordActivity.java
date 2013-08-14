@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -37,7 +38,7 @@ import orz.kassy.tmpl.lib.Utils;
  * 力の限り回し続ける撮影方法
  * @author kashimoto
  */
-public class RecordActivity extends SherlockActivity implements ActionBar.OnNavigationListener, OnFeedBackListener, OnDismissListener {
+public class RecordActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener, OnFeedBackListener, OnDismissListener {
 
     // 撮影終了から人形除去までの許容時間
     private static final int TIME_FOR_REMOVING_FIGURE = 3000;
@@ -171,19 +172,21 @@ public class RecordActivity extends SherlockActivity implements ActionBar.OnNavi
         if(mInstFlag == false){
             mInstFlag = true;
             // レイアウトファイルから呼び出し
-            LayoutInflater inflater = LayoutInflater.from(this);
-            final View instDialogView = inflater.inflate(R.layout.inst_dialog, null);
-            TextView instText = (TextView) instDialogView.findViewById(R.id.inst_text);
-            instText.setText(R.string.instruction_dialog_message);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.instruction_dialog_title);
-            builder.setPositiveButton(R.string.alert_dialog_ok, null);
-            builder.setView(instDialogView);
-            builder.setIcon(R.drawable.ic_main_56);
-            builder.setCancelable(false);
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.show();     
+            final CustomDialogFragment demoDialog = new CustomDialogFragment();
+            demoDialog.show(getSupportFragmentManager(), "dkalog");
+//            LayoutInflater inflater = LayoutInflater.from(this);
+//            final View instDialogView = inflater.inflate(R.layout.inst_dialog, null);
+//            TextView instText = (TextView) instDialogView.findViewById(R.id.inst_text);
+//            instText.setText(R.string.instruction_dialog_message);
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle(R.string.instruction_dialog_title);
+//            builder.setPositiveButton(R.string.alert_dialog_ok, null);
+//            builder.setView(instDialogView);
+//            builder.setIcon(R.drawable.ic_main_56);
+//            builder.setCancelable(false);
+//            final AlertDialog alertDialog = builder.create();
+//            alertDialog.show();     
         }
     }
 
