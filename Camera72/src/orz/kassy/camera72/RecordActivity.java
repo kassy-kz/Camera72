@@ -233,7 +233,7 @@ public class RecordActivity extends SherlockFragmentActivity implements ActionBa
                         Intent intent = new Intent(sSelf, RecordListActivity.class);
                         intent.putExtra(MainActivity.INTENT_EXTRA, MainActivity.INTENT_EXTRA_FROM_RECORD);
                         startActivity(intent);
-                        Utils.showToast(sSelf, "お待ちください");
+                        Utils.showToast(sSelf, "please wait");
                     }
                 });
                 builder.setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {

@@ -202,7 +202,7 @@ public class RecordListActivity extends SherlockActivity implements OnItemClickL
         switch(menu.getItemId()){
             // ごみばこボタンをクリックした
             case OPTIONS_ITEM_ID_DELETE:
-                Utils.showToast(this, "消去するにはリストを長押ししてください \n ごめんなさい このボタンはフェイクです");
+                Utils.showToast(this, R.string.delete_fake_string);
                 break;
             default:
                 break;

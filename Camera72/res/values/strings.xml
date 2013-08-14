@@ -51,4 +51,5 @@
     <string name="inst_step4">step4 : background record.</string>
     <string name="inst_step5">step5 : Encode</string>
     <string name="inst_ext">Please don\'t touch mobile phone between step2 and step4</string>
+    <string name="delete_fake_string">To delete item, please long tap item. \n This button is fake, sorry...</string>
 </resources>

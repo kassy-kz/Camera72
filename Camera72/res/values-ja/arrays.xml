@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="number_of_picture">
-        <item>1 shoot</item>
-        <item>50 shoots</item>
-        <item>100 shoots</item>
-        <item>150 shoots</item>
-        <item>200 shoots</item>
+        <item>1枚撮影</item>
+        <item>50枚撮影</item>
+        <item>100枚撮影</item>
+        <item>150枚撮影</item>
+        <item>200枚撮影</item>
     </string-array>
     
     <integer-array name="number_of_picture_int">
@@ -31,10 +31,10 @@
     </string-array>
 
     <string-array name="select_action_dialog_items">
-        <item>Extract figure</item>
-        <item>View</item>
-        <item>Superimposed picture</item>
-        <item>Superimposed camera</item>
+        <item>抜き出し処理を行う</item>
+        <item>見る</item>
+        <item>写真に重ねる</item>
+        <item>カメラに重ねる</item>
     </string-array>
     
 </resources>
